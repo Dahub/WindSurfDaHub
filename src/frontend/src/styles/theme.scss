@@ -1,0 +1,35 @@
+// Variables globales
+:root {
+  // Couleurs principales
+  --primary-color: #1976D2;
+  --secondary-color: #424242;
+  --accent-color: #82B1FF;
+  
+  // Couleurs sémantiques
+  --success-color: #4CAF50;
+  --warning-color: #FFC107;
+  --error-color: #FF5252;
+  --info-color: #2196F3;
+
+  // Couleurs de texte
+  --text-primary: rgba(0, 0, 0, 0.87);
+  --text-secondary: rgba(0, 0, 0, 0.6);
+  --text-disabled: rgba(0, 0, 0, 0.38);
+
+  // Espacements
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  // Bordures
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 16px;
+
+  // Ombres
+  --elevation-1: 0 2px 4px rgba(0,0,0,0.1);
+  --elevation-2: 0 4px 8px rgba(0,0,0,0.1);
+  --elevation-3: 0 8px 16px rgba(0,0,0,0.1);
+}

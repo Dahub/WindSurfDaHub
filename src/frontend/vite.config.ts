@@ -1,13 +1,24 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import vuetify from 'vite-plugin-vuetify'
 import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    vuetify({ autoImport: true }), // Activation de Vuetify
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "@/styles/theme.scss" as *;`
+      }
     }
   },
   server: {
@@ -19,9 +30,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'http://backend:5269',
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path
+        rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
   }

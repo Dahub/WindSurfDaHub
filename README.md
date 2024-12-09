@@ -1,104 +1,123 @@
-# WindSurfDaGet
+# DaGet
 
-Application full-stack moderne utilisant Flutter Web, .NET 8, et SQL Server, le tout conteneurisé avec Docker.
+Une application web moderne de gestion financière construite avec Vue.js et .NET 8, suivant les principes du Clean Architecture.
 
-## Stack Technique
+## Architecture
 
-### Frontend
-- Flutter Web
-- Material Design 3
-- HTTP pour les appels API
-- Nginx comme serveur web
+### Frontend (Vue.js + TypeScript)
 
-### Backend
-- .NET 8 Minimal API
-- Architecture Clean
-- Support CORS
-- Swagger/OpenAPI
+L'application frontend est construite avec Vue.js 3 et suit une architecture modulaire :
+
+```
+src/frontend/
+├── src/
+│   ├── assets/          # Ressources statiques
+│   ├── components/      # Composants réutilisables
+│   ├── services/        # Services d'API et logique métier
+│   ├── views/           # Composants de pages
+│   ├── router/          # Configuration des routes
+│   └── main.ts         # Point d'entrée
+```
+
+#### Technologies Frontend
+- **Vue.js 3** avec Composition API pour une meilleure réutilisation du code
+- **TypeScript** pour le typage statique
+- **Vuetify 3** pour les composants UI Material Design
+- **Vite** pour le bundling et le développement
+- **Axios** pour les appels API
+- **Vue Router** pour la navigation
+- **Pinia** pour la gestion d'état (prévu)
+
+### Backend (.NET 8)
+
+Le backend suit les principes du Clean Architecture avec une séparation claire des responsabilités :
+
+```
+src/backend/
+├── DaGet.Api/            # Couche API
+├── DaGet.Application/    # Couche Application
+├── DaGet.Domain/         # Couche Domain
+└── DaGet.Infrastructure/ # Couche Infrastructure
+```
+
+#### Technologies Backend
+- **.NET 8** pour les performances et les fonctionnalités modernes
+- **Entity Framework Core 8** pour l'ORM
+- **SQL Server** pour la persistance
+- **MediatR** pour l'implémentation CQRS
+- **FluentValidation** pour la validation des données (prévu)
+
+#### Patterns & Principes
+- **Clean Architecture** pour une séparation claire des responsabilités
+- **CQRS** (Command Query Responsibility Segregation) pour séparer les lectures des écritures
+- **Domain-Driven Design** pour la modélisation du domaine
+- **Repository Pattern** pour l'abstraction de la persistance
 
 ### Infrastructure
-- Docker & Docker Compose
-- SQL Server 2022
-- Nginx reverse proxy
 
-## Prérequis
-- Docker Desktop
-- Git
+Le projet utilise Docker pour la containerisation et assure une configuration cohérente entre les environnements :
 
-## Installation et Démarrage
-
-1. Cloner le repository :
-```bash
-git clone [votre-repo-url]
-cd WindSurfDaGet
+```yaml
+services:
+  frontend:    # Vue.js sur le port 5173
+  backend:     # API .NET sur le port 5269
+  db:          # SQL Server sur le port 1433
 ```
 
-2. Lancer l'application :
-```bash
-docker-compose up --build
-```
+## Démarrage Rapide
 
-## Accès aux Services
+1. **Prérequis**
+   - Docker Desktop
+   - .NET SDK 8.0 (pour le développement)
+   - Node.js 18+ (pour le développement)
 
-- Frontend : http://localhost
-- Backend API : http://localhost:5000/swagger
-- Base de données : localhost:1433
+2. **Lancement avec Docker**
+   ```bash
+   docker-compose up --build
+   ```
 
-## Structure du Projet
+3. **Accès**
+   - Frontend : http://localhost:5173
+   - API : http://localhost:5269
+   - Swagger : http://localhost:5269/swagger
 
-```
-WindSurfDaGet/
-├── src/
-│   ├── frontend/           # Application Flutter
-│   │   ├── lib/           # Code source Flutter
-│   │   ├── web/          # Fichiers web
-│   │   ├── Dockerfile    # Configuration Docker frontend
-│   │   └── nginx.conf    # Configuration Nginx
-│   │
-│   └── backend/           # API .NET
-│       ├── WindSurfDaGet.Api/      # API Layer
-│       ├── WindSurfDaGet.Domain/   # Domain Layer
-│       └── Dockerfile             # Configuration Docker backend
-│
-└── docker-compose.yml    # Configuration Docker Compose
-```
+## Authentification
 
-## Fonctionnalités Actuelles
-- Interface utilisateur Flutter moderne
-- Communication frontend-backend via API REST
-- Exemple d'endpoint "Hello World"
-- Conteneurisation complète de l'application
+- JWT pour l'authentification stateless
+- Validation d'email unique
+- Hachage sécurisé des mots de passe
+- Gestion des sessions avec refresh tokens (prévu)
 
-## Développement
+## Sécurité
 
-### Frontend
-Le frontend Flutter est servi via Nginx et communique avec le backend via un proxy inverse.
-Les appels API sont configurés pour passer par le chemin `/api/`.
+- HTTPS en production
+- Protection CSRF
+- Validation des entrées
+- Gestion sécurisée des mots de passe
+- Headers de sécurité configurés
 
-### Backend
-L'API .NET expose ses endpoints via Swagger UI pour faciliter les tests et la documentation.
-CORS est configuré pour permettre les appels depuis le frontend.
+## Tests (Prévu)
 
-### Base de données
-SQL Server est accessible sur le port standard 1433.
-Les données sont persistées via un volume Docker.
+- Tests unitaires avec xUnit et Jest
+- Tests d'intégration
+- Tests E2E avec Cypress
+- Tests de performance avec k6
 
-## Variables d'Environnement
+## CI/CD (Prévu)
 
-### Frontend
-- `BACKEND_URL`: URL du backend (configuré via nginx)
+- GitHub Actions pour l'intégration continue
+- Déploiement automatisé
+- Analyse de code avec SonarQube
+- Scan de sécurité des dépendances
 
-### Backend
-- `ASPNETCORE_ENVIRONMENT`: Environment .NET
-- `ASPNETCORE_URLS`: URLs d'écoute de l'API
+## Contribution
 
-### Base de données
-- `SA_PASSWORD`: Mot de passe SQL Server
-- `ACCEPT_EULA`: Acceptation licence SQL Server
+1. Fork le projet
+2. Créez une branche (`git checkout -b feature/nouvelle-fonctionnalite`)
+3. Committez vos changements (`git commit -m 'Ajout d'une nouvelle fonctionnalité'`)
+4. Push vers la branche (`git push origin feature/nouvelle-fonctionnalite`)
+5. Créez une Pull Request
 
-## À Venir
-- [ ] Authentification utilisateur
-- [ ] Tests automatisés
-- [ ] CI/CD
-- [ ] Monitoring
-- [ ] Logging centralisé
+## License
+
+MIT

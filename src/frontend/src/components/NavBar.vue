@@ -4,8 +4,6 @@
     elevation="4"
     class="px-3"
   >
-    <v-app-bar-nav-icon class="d-flex d-sm-none"></v-app-bar-nav-icon>
-    
     <router-link to="/" class="text-decoration-none text-white d-flex align-center">
       <v-img
         :src="logo"
@@ -14,31 +12,13 @@
         class="me-2"
         alt="DaGet Logo"
       ></v-img>
-      <v-app-bar-title>DaGet</v-app-bar-title>
+      <v-app-bar-title class="text-no-wrap">DaGet</v-app-bar-title>
     </router-link>
 
     <v-spacer></v-spacer>
 
-    <div class="d-none d-sm-flex align-center">
-      <v-btn
-        variant="text"
-        class="mx-2"
-        :ripple="false"
-      >
-        Dashboard
-      </v-btn>
-      <v-btn
-        variant="text"
-        class="mx-2"
-        :ripple="false"
-      >
-        Profil
-      </v-btn>
-    </div>
-
     <v-btn
       icon
-      class="ms-3"
       @click="logout"
     >
       <v-icon>mdi-logout</v-icon>
@@ -53,18 +33,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import auth from '@/services/auth'
-import logo from '../assets/logo.jpg'
+import logo from '@/assets/logo.jpg'
 
 const router = useRouter()
-const username = ref<string | null>(null)
-
-onMounted(() => {
-  const user = auth.getCurrentUser()
-  username.value = user?.username
-})
 
 const logout = () => {
   auth.logout()
@@ -85,5 +58,9 @@ const logout = () => {
 
 .v-btn:hover {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.v-app-bar-title{
+  width: 150px !important;
 }
 </style>

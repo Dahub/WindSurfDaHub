@@ -4,9 +4,14 @@ FROM node:18-alpine
 # Définir le répertoire de travail
 WORKDIR /app
 
-# Installation des dépendances
+# Copier les fichiers de dépendances
 COPY package*.json ./
+
+# Installer toutes les dépendances
 RUN npm install
+
+# Forcer l'installation de sass
+RUN npm install -D sass sass-loader 
 
 # Copier le code source
 COPY . .

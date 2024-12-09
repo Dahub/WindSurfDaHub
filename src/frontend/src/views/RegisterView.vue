@@ -87,6 +87,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import auth from '@/services/auth'
+import logo from '@/assets/logo.jpg'
 
 const router = useRouter()
 const email = ref('')
